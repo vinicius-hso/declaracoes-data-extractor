@@ -18,12 +18,13 @@ class Reader:
         
         # extracting text from page
         self.file_content = pageObj.extract_text()
-        self.extract()
         
         # closing the pdf file object
         pdfFileObj.close()
         
     def extract(self):
+        self.read()
+        
         s = self.file_content.find('IDENTIFICAÇÃO DO CONTRIBUINTE')
         content = self.file_content[s:]
         
@@ -31,7 +32,7 @@ class Reader:
             'nome': content.find('Nome:'),
             'nascimento': content.find('Data de Nascimento'),
             'titulo': content.find('Título Eleitoral:'),
-            'endereco': content.find('Município:'),
+            'municipio': content.find('Município:'),
             'uf': content.find('UF:'),
             'ocupacao': content.find('Natureza da Ocupação:'),
             'cpf': content.find('CPF:'),
@@ -41,7 +42,7 @@ class Reader:
             'nome': None,
             'nascimento': None,
             'titulo': None,
-            'endereco': None,
+            'municipio': None,
             'uf': None,
             'ocupacao': None,
             'cpf': None,
@@ -55,33 +56,30 @@ class Reader:
             values[i] = aux
             
             # sanitize
-            if i == 'nome':
-                pass
-            elif i == 'titulo':
-                pass
-            elif i == 'uf':
-                pass
-            elif i == 'ocupacao':
-                pass
-            elif i == 'nascimento':
+            if i == 'nascimento':
                 if 'Título' in aux:
                     position = aux.find('Título')
                     values[i] = aux[:position]
-            elif i == 'endereco':
+                    
+                    values[i] = values[i].split(': ')[1]
+            elif i == 'municipio':
                 if 'UF' in aux:
                     position = aux.find('UF')
                     values[i] = aux[:position]
+                    
+                    values[i] = values[i].split(': ')[1]
             elif i == 'cpf':
                 if 'Nome' in aux:
                     position = aux.find('Nome')
                     values[i] = aux[:position]
+                    
+                    values[i] = values[i].split(': ')[1]
             
-        
-        print(values)
-                
-        
-# TODO:
-# salvar o conteúdo em um csv    
+            else:
+                values[i] = values[i].split(': ')[1]
+            
+        return values
+     
        
         
         

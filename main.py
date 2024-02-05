@@ -1,4 +1,5 @@
 import os
+import csv
 from PDFUtils import Reader
 
 # ler entrada do usuário path destino dos arquivos
@@ -18,12 +19,21 @@ for dir in [dirs[0]]:
     # diretório vazio
     if not len(files): continue
     
+    pdfs_content = []
+    
     for file in files:
         if '.pdf' in file:
             
             # ler e extrair dados do arquivo
             file_path = f'{dir_path}/{file}'
             reader = Reader(file_path)
-            reader.read()
+            content = reader.extract()
+            pdfs_content.append(content)
             
-            break
+    # TODO: criar csv...
+    with open('./relatorio', 'w') as f:
+            # create the csv writer
+            writer = csv.writer(f)
+
+            # write a row to the csv file
+            writer.writerow(content)
