@@ -16,7 +16,9 @@ Criar ambiente virtual
 
 > no diretorio raiz do projeto, crie um ambiente virtual
 
-`virtualenv venv`
+MacOS e Linux: `virtualenv venv`
+
+Windows: `python -m venv env`
 
 Ativar ambiente virtual
 
