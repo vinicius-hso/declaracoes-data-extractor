@@ -32,7 +32,7 @@ with open('./relatorio.csv', 'w') as f:
         
         windows_platform = 'win32' in sys.platform
         
-        dir_path = f'{path}\{dir}' if windows_platform else f'{path}/{dir}'
+        dir_path = f'{path}\\{dir}' if windows_platform else f'{path}/{dir}'
         
         files = os.listdir(dir_path)
         
@@ -44,7 +44,7 @@ with open('./relatorio.csv', 'w') as f:
         for file in files:
             if '.pdf' in file:
                 # ler e extrair dados do arquivo
-                file_path = f'{dir_path}\{file}' if windows_platform else f'{dir_path}/{file}'
+                file_path = f'{dir_path}\\{file}' if windows_platform else f'{dir_path}/{file}'
                 reader = Reader(file_path)
                 content = reader.extract()
                 pdfs_content.append(content)
