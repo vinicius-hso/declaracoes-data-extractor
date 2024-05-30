@@ -6,7 +6,9 @@ from PDFUtils import Reader
 input_dir_path = input('Insira o caminho do diretório de "Declarações": ')
 output_dir_path = input('Insira o caminho de diretõrio para salvar o arvquido de relatório: ')
 
+# teste local
 # input_dir_path = "C:\\Users\\vinicius\\Downloads\\declaracoes\\declaracoes"
+# input_dir_path = 'C:\\Users\\vinicius\\Downloads\\dec'
 # output_dir_path = input_dir_path
 
 # C:\Users\vinicius\Downloads\declaracoes\declaracoes
@@ -37,12 +39,11 @@ def get_pdf_paths(dir_path, pdfs = []):
                 file_path = f'{path}\\{file}' if windows_platform else f'{path}/{file}'
                 pdfs_paths.append(file_path)
         
-    # print(pdfs_paths)
     return pdfs_paths
 
 def get_pdf_content(pdf_path):
     reader = Reader(pdf_path)
-    content = reader.extract()
+    content = reader.extract_data()
     # print(content)
     return content 
     
